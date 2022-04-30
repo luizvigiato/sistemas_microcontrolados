@@ -79,13 +79,8 @@ void ini_P1_P2(void){
      * P2.0 -> entrada botao
      * P2.x -> Todas em saida -> Baixo
      */
-    P2DIR = 0xFC;
-    P2OUT = BIT0 + BIT1;
-    P2IE = BIT0;
-    P2REN = BIT0 + BIT1;
-    P2IES = 0;
-    P2IFG = 0;
-
+    P2DIR = 0xFF;
+    P2OUT = 0;
 }
 
 void ini_Timer0(void){
@@ -103,41 +98,24 @@ void ini_Timer0(void){
      * - TA0CCR0 = 5ms * 125kHz
      *
      */
-    TA0CTL = TASSEL0;
+    TA0CTL = TASSEL0 + MC0;
     TA0CCTL0 = CCIE;
-    TA0CCR0 = 100;
-}
-
-#pragma vector = PORT2_VECTOR
-__interrupt void Port_2(void){
-    P2IE = 0;
-    if(P2IN & BIT1){
-        numero++;
-    }else{
-        if(numero < 0){
-            numero = 9;
-        }
-        numero--;
-
-    }
-    TA0CTL |= MC0;
-    altera_led();
+    TA0CCR0 = 32767;
 }
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void RTI_do_M0_do_Timer0(void){
-    // Flag de int. é limpa automaticamente
-    TA0CTL &= ~MC0; // Para o Timer0 -> vai para modo STOP
-    P2IFG &= ~BIT0; // Obrigatorio limpar flag aqui!
-    P2IE |= BIT0;   // Habilita int. do BIT3 da P1
+    /**
+     * Incrementa numero de contagem
+     * Chama funcao de mudanca do display
+     */
+    numero++;
+    altera_led();
 }
 
 void altera_led(void){
     if(numero > 9){
         numero = 0;
-    }
-    if(numero < 0){
-        numero = 9;
     }
     switch (numero){
     case 0:
