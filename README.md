@@ -23,7 +23,7 @@ Utilizando um display 7 segmentos criar um contador que a cada vez que o botao e
 
 - ## **Clocks diferentes com dois leds**
 
-Utilizando o cristal e o clock do microprocessador para demonstrar a imprecisão do clock do micro
+Utilizando o cristal e o clock do microprocessador para demonstrar a imprecisão do clock do micro.  **Pasta:** _(clocks_diferentes_leds)_
 
 ![Incrementador schema](clocks_diferentes_leds/schema.png)
 <!-- - ## **Incrementador e decrementador display 7 seg. com botoes** -->
