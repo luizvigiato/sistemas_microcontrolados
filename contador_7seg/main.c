@@ -87,15 +87,15 @@ void ini_Timer0(void){
     /* Configuracoes iniciais do Timer0 para o Debouncer de S2
      *
      * CONTADOR
-     * - Fonte de Clock: SMCLK ~ 2 MHz
-     * - Fdiv clock: 1
-     * - Modo cont.: Inicialmente >>>> PARADO!
+     * - Fonte de Clock: Cristal = 32768
+     * - Fdiv clock: 0
+     * - Modo cont.: Inicialmente >>>> ATIVO!
      * - Int. cont.: desabilitada
      *
      * MODULO 0
      * - Modo: Comparacao (default)
      * - Interrupcao: Habilitada
-     * - TA0CCR0 = 5ms * 125kHz
+     * - TA0CCR0 = 1s pois 32768 = 1seg - 1 pelo ciclo de interrupcao.
      *
      */
     TA0CTL = TASSEL0 + MC0;
